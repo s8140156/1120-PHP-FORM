@@ -87,8 +87,11 @@ foreach($files as $file){
     <td><?=$file['desc']?></td>
     <td><?=$file['create_at']?></td>
     <td>
-        <button class="btn btn-info">編輯</button>
-        <button class="btn btn-danger"><a href='./api/del_file.php?id=<?=$file['id'];?>'>刪除</a></button>
+        <button class="btn btn-danger" onclick="location.href='./edit_file.php?id=<?=$file['id'];?>'">編輯</button>    
+        <!-- <button class="btn btn-info">編輯</button> -->
+        <!-- <button class="btn btn-danger"><a href='./api/del_file.php?id=<?=$file['id'];?>'>刪除</a></button> -->
+        <!-- 使用a tag做button動作 -->
+        <button class="btn btn-danger" onclick="location.href='./api/del_file.php?id=<?=$file['id'];?>'">刪除</button>
     </td>
 </tr>
 <?php
