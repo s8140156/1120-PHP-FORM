@@ -2,6 +2,16 @@
 
 include_once "db.php";
 
+if(isset($_GET['id'])){
+
+    $file=find('files',$_GET['id']);
+}else{
+    exit();
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +34,20 @@ if(isset($_GET['err'])){
 ?>
 
  <form action="./api/edit_file.php" method="post" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>媒體</td>
+            <td><input type="file" name="img" id="" value=""></td>
+        </tr>
+        <tr>
+            <td>檔名</td>
+            <td><input type="text" name="name" id="" value=""></td>
+        </tr>
+        <tr>
+            <td>說明</td>
+            <td><textarea name="" style="width:"id="" cols="30" rows="10"></textarea></td>
+        </tr>
+    </table>
     <input type="file" name="img" id="">
     <input type="text" name="name" id="">
     <input type="text" name="desc" value="描述" placeholder="請輸入檔案描述">
