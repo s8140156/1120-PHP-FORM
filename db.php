@@ -1,8 +1,8 @@
 <?php
 
 date_default_timezone_set("Asia/Taipei");
-$dsn="mysql:host=localhost;charset=utf8;dbname=member";
-// 這張可以到處用 但要注意dbname要調整
+$dsn="mysql:host=localhost;charset=utf8;dbname=material";
+// 這張可以到處用 但要注意dbname要調整=>已建資料庫material
 $pdo=new PDO($dsn,'root','');
 session_start();
 
