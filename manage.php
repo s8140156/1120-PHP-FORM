@@ -81,9 +81,9 @@ foreach($files as $file){
 
 <tr>
     <td><?=$file['id']?></td>
-    <td><img class='thumbs' src="<?=$imgname?>" alt=""></td>
+    <td><?=$file['name']?><img class='thumbs' src="<?=$imgname?>" alt=""></td>
     <td><?=$file['type']?></td>
-    <td><?=$file['size']?></td>
+    <td><?=$file['size'] ." bytes"?></td>
     <td><?=$file['desc']?></td>
     <td><?=$file['create_at']?></td>
     <td>

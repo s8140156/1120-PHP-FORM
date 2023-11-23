@@ -14,6 +14,7 @@ if(!empty($_FILES['img']['tmp_name'])){
 	// echo $_FILES['img']['type'];
 	// echo "<br>";
 	// echo $_FILES['img']['size']." bytes";
+	// exit();
 	$tmp=explode(".",$_FILES['img']['name']);
 	$subname=".".end($tmp);
 	// $subname=explode(".",$_FILES['img']['name'])[end(explode(".",$_FILES['img']['name']))];
@@ -62,6 +63,10 @@ if(!empty($_FILES['img']['tmp_name'])){
 		   'type'=>$type,
 		   'size'=>$_FILES['img']['size'],
 			'desc'=>$_POST['desc']];
+			// 將上傳的檔案相關資料以"陣列"存入資料庫, 檔名用上述已規範的命名變數$filename
+			// $type檔案類型用switch case規範
+			// size是取得資訊自動訊息
+			// desc是從網頁傳值POST得來的
 
 	insert('files',$file);
 
