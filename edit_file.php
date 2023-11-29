@@ -50,7 +50,7 @@ if(isset($_GET['err'])){
     </table>
     <input type="file" name="img" id="">
     <input type="text" name="name" id="">
-    <input type="text" name="desc" value="描述" placeholder="請輸入檔案描述">
+    <input type="text" name="desc">
     <input type="submit" value="更新">
  </form>
 

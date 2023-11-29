@@ -61,19 +61,19 @@ foreach($files as $file){
             $imgname="./imgs/".$file['name'];
         break;
         case "msword":
-            $imgname="./icon/xxx.svg...";
+            $imgname="./icon/msword.png";
         break;
         case "msexcel":
-            $imgname="./icon/xxx.svg...";
+            $imgname="./icon/msexcel.png";
         break;
         case "msppt":
-            $imgname="./icon/xxx.svg...";
+            $imgname="./icon/msppt.png";
         break;
         case "pdf":
-            $imgname="./icon/xxx.svg...";
+            $imgname="./icon/pdf.png";
         break;
         default:
-            $imgname="./icon/xxx.svg...";
+            $imgname="./icon/other.png";
 
     }
 
