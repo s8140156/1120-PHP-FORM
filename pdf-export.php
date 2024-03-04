@@ -23,6 +23,21 @@ if(!empty($_POST)){
 		<meta charset='UTF-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 		<title>Document</title>
+		<style>
+			table{
+				border-collapse:collapse;
+				font-size:12px;
+			}
+			td{
+				border:1px solid #666;
+				padding:5px 12px;
+			}
+			tr:first-child{
+				background:black;
+			}
+			tr:nth-child(odd){
+				background:lightcoral;
+			}
 	</head>
 	<body>";
 		
@@ -32,12 +47,16 @@ if(!empty($_POST)){
 		if(!$chk){
 			$cols=array_keys($row); //取鍵值 就是欄位
 			$html .="<tr>";
-			foreach($cols as $col){
+			foreach($cols as $idx=>$col){
 				$html .="<td>";
 				$html .=$col;
 				$html .="</td>";
+				if($idx==7){ 
+					$html .="</tr>"; 
+					$html .="<tr>";
+
+				}
 			}
-			$html .="</tr>";
 			$chk=true; //只做第一次 後面就不再取
 		}
 		// fwrite($file,join(",",$row)."\r\n"); //斷行
@@ -54,6 +73,8 @@ if(!empty($_POST)){
 	</html>";
 	// 將 HTML 載入 Dompdf
 	$dompdf->loadHtml($html);
+
+	$dompdf->setPaper('A4', 'landscape'); //直式portrait
 
 	// 渲染 PDF（可選）
 	$dompdf->render();
