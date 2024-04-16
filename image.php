@@ -12,6 +12,7 @@
 
 if(!empty($_FILES['img']['tmp_name'])){
     move_uploaded_file($_FILES['img']['tmp_name'],'./imgs/'.$_FILES['img']['name']);
+    //創造縮略圖 source_path(來源), destination_path(目標)
     $source_path='./imgs/'.$_FILES['img']['name'];
     $type=$_FILES['img']['type'];
     switch($type){
