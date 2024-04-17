@@ -10,15 +10,19 @@
  * 5.輸出檔案
  */
 
+//圖形處理需要使用PHP GD(graphics drawing)庫
+//記得要"啟用"GD函式庫(在php.ini底下 找extension=gd 拿掉;打開) 記得要重新開啟apache
+
 if(!empty($_FILES['img']['tmp_name'])){
     move_uploaded_file($_FILES['img']['tmp_name'],'./imgs/'.$_FILES['img']['name']);
     //創造縮略圖 source_path(來源), destination_path(目標)
-    $source_path='./imgs/'.$_FILES['img']['name'];
-    $type=$_FILES['img']['type'];
-    switch($type){
-        case 'image/jpeg':
-            $source=imagecreatefromjpeg($source_path);
-            list($width,$height)=getimagesize($source_path);
+    $source_path='./imgs/'.$_FILES['img']['name']; //來源路徑
+    $type=$_FILES['img']['type']; //取得圖片類型(副檔名)(先使用$_FILES['type'])
+    switch($type){ //然後用switch case對應各種型態(副檔名)
+        case 'image/jpeg': //MIME type(可以google找檔案類型的寫法)
+            $source=imagecreatefromjpeg($source_path); //建立原始(來源)圖的資源(source)
+            list($width,$height)=getimagesize($source_path); //getimagesixe()取得原始(來源)圖片的寬高(取得的資料是陣列)
+            // list()解構賦值語法(解構陣列)
         break;
         case 'image/png':
             $source=imagecreatefrompng($source_path);
@@ -33,27 +37,28 @@ if(!empty($_FILES['img']['tmp_name'])){
             list($width,$height)=getimagesize($source_path);
         break;
     }
-    $dst_path='./imgs/small_'.$_FILES['img']['name'];
-    $dst_width=150;
+    $dst_path='./imgs/small_'.$_FILES['img']['name']; //目標路徑
+    $dst_width=150; //目標寬高
     $dst_height=200;
-    $dst_source=imagecreatetruecolor($dst_width,$dst_height);
+    $dst_source=imagecreatetruecolor($dst_width,$dst_height); //建立目標圖的資源(source)(全彩圖片)
     imagecopyresampled($dst_source,$source,0,0,0,0,$dst_width,$dst_height,$width,$height);
+    //將來源圖片複製並重新取樣到目的圖片
     switch($type){
         case 'image/jpeg':
-            imagejpeg($dst_source,$dst_path);
+            imagejpeg($dst_source,$dst_path); //保存縮略圖(目標檔案的圖形資源,目標檔案的路徑) 資料從存在電腦伺服器的記憶體裡類似印出來
         break;
         case 'image/png':
             imagepng($dst_source,$dst_path);
         break;
         case 'image/gif':
-            imagegif($dst_source,$dst_path);
+            imagegif($dst_source,$dst_path); //gif動畫 這邊的保存只會有第一格
         break;
         case 'image/bmp':
             imagebmp($dst_source,$dst_path);
         break;
     }
 
-    imagedestroy($source);
+    imagedestroy($source); //釋放資源(將在記憶體裡面的檔案資源取消(釋放destroy)掉)
     imagedestroy($dst_source);
 }
 
@@ -90,7 +95,7 @@ if(!empty($_FILES['img']['tmp_name'])){
 
 <!----縮放圖形----->
 
-<img src="<?=$dst_path;?>" alt="">
+<img src="<?=$dst_path;?>" style="margin-left:10px">
 
 
 <!----圖形加邊框----->
