@@ -33,23 +33,23 @@ if(!empty($_FILES['img']['tmp_name'])){
         break;
     }
     $dst_path='./imgs/thumb_'.$_FILES['img']['name'];
-    $dst_width=300;
+    $dst_width=300; //先設定一個寬高300*300的容器(框) 再把縮略圖放在這個容器裡
     $dst_height=300;
     $border=20;
     $dst_source=imagecreatetruecolor($dst_width,$dst_height);
-    $white=imagecolorallocate($dst_source,255,255,255);
+    $white=imagecolorallocate($dst_source,255,255,255); //邊框底色原設定為黑色,使用imagecreatetruecolor改變底色
     $red=imagecolorallocate($dst_source,255,0,0);
-    $skyblue=imagecolorallocate($dst_source,122,204,244);
-    imagefill($dst_source,0,0,$skyblue);
+    $gold=imagecolorallocate($dst_source,255,215,0);
+    imagefill($dst_source,0,0,$gold); //並使用imagefill把變換的底色放進目標框的資源內
 
     //判斷方向性(形狀)
     if($width==$height){ //這邊是判斷是否長寬相等 不能只寫= 要用判斷方式==
-        $scale=($dst_width-($border*2))/$width;
+        $scale=($dst_width-($border*2))/$width; //$dst_width:目標容器的寬度; $width:那張圖片的原寬度
         echo "scale".$scale;
         $new_width=$width*$scale;
         $new_height=$height*$scale;
-        $dst_w_x=$border;
-        $dst_w_y=$border;
+        $dst_w_x=$border; //目標寬度起始 從border開始
+        $dst_w_y=$border; //目標高度起始 從border開始
     }else if($width<$height){
         //直向
         $scale=($dst_width-($border*2))/$height;
@@ -57,7 +57,7 @@ if(!empty($_FILES['img']['tmp_name'])){
         $new_width=$width*$scale;
         $new_height=$height*$scale;
         $dst_x=floor(($dst_width-$new_width)/2);
-        $dst_y=$border;
+        $dst_y=$border; //目標高度起始 從border開始
     }else{
         //橫向
         $scale=($dst_width-($border*2))/$width;
@@ -122,7 +122,7 @@ if(!empty($_FILES['img']['tmp_name'])){
 
 <!----縮放圖形----->
 
-<img src="<?=$dst_path;?>" alt="">
+<img src="<?=$dst_path;?>" style="margin-left:10px">
 
 
 <!----圖形加邊框----->
