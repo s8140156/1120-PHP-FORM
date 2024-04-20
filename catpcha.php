@@ -9,14 +9,16 @@
 <body>
 <?php
 /**
- * 設計兩個function用來產生驗證碼和圖形
+ * 設計兩個function用來'產生驗證碼'和'圖形' (兩個function可以獨立使用)
  * 驗證碼的部份可以指定長度也可以由函式亂數決定
  * 回傳值 :string
  */
 // echo code(); //老師設定是介於4~8之間的數 如果沒設定至少從4開始 如果有設定數字 則給出對應數字的亂數
+// ...不定變數(變數長度不確定),最後呈現變數會以陣列方式呈現
+// echo code(10);
 function code(...$length){
   
-    //使用亂數來產生驗證碼長度，判斷是否帶有參數來決定長度變數的產生方式
+    //使用亂數來產生驗證碼長度，會先判斷是否帶有參數$length[0]來決定長度變數的產生方式
     $length=$length[0]??rand(4,8);
 
     //宣告一個空字串，用來存放驗證碼字串
@@ -35,7 +37,7 @@ function code(...$length){
                     $t=rand(0,9);       //使用rand()來產生0~9的任一數字
                 break;
                 case 2:
-                    $t=chr(rand(65,90));//使用chr()函式根據ASCII碼(十進位)產生大寫字母
+                    $t=chr(rand(65,90));//使用chr()函式根據ASCII碼(十進位)產生大寫字母(字型圖形) ;ord()反之 將圖形轉為ASCII碼
                 break;
                 case 3:
                     $t=chr(rand(97,122));//使用chr()函式根據ASCII碼產生小寫字母
@@ -74,7 +76,7 @@ function captcha($str){
         $text_info[$char]['angle']=rand(-25,25);
 
         //使用imagettfbbox()來取得單一字元在大小,角度和字型的影響下，字元圖形的四個角的坐標資訊陣列, realpath()根據使用環境去抓對應根目錄下的檔案(就是不會因為其他人使用造成路徑不對)
-        $tmp=imagettfbbox($fontsize,$text_info[$char]['angle'],realpath('./fonts/arial.ttf'),$char);
+        $tmp=imagettfbbox($fontsize,$text_info[$char]['angle'],realpath('./fonts/Apple Chancery.ttf'),$char);
 
         //利用字元的資訊，使用x坐標的最大值減最小值來計算出字元寬度，使用y坐標的最大值-最小值來計出字元高度
         //因坐標特性，需要加上1才能得到正確的寬度及高度(因為座標從0開始如A字型若不+1左下角的點會不見)
