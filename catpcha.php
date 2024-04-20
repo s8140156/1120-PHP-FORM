@@ -193,5 +193,6 @@ function captcha($str){
 ?>
 
 <img src="<?=captcha (code(5));?>" alt="" style="border:2px solid green">
+<!-- <img src="<?=captcha (code());?>" alt="" style="border:2px solid green"> -->
 </body>
 </html>
