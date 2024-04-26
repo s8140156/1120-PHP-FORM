@@ -81,8 +81,8 @@ foreach($rows as $key=>$row){
 </table>
 </form>
 <script>
-	$('#select').on("change",function(){
-		if($(this).prop('checked')){
+	$('#select').on("change",function(){ //全選寫法
+		if($(this).prop('checked')){ // 確認點選下去 使用prop()(property)確認狀況checked or not checked
 			$("input[name='select[]']").prop('checked',true);
 		}else{
 			$("input[name='select[]']").prop('checked',false);
