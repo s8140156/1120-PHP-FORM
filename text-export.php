@@ -8,17 +8,19 @@ if(!empty($_POST)){
 	$filename=date("Ymd").rand(100000000,999999999);
 	$file=fopen("./doc/{$filename}.csv",'w+'); // fopen() w+:開啟可讀/可寫的檔案(我覺得是產生檔案);如果檔案不存在會建立新檔案
 	fwrite($file, "\xEF\xBB\xBF"); //BOM轉碼編譯 讓文字不會亂碼 big50->utf8 一樣用fwrite()寫入
-	$chk=false; //使用在要加入第一列欄位名稱的判斷變數
+	$chk=false; //使用在要加入"第一列欄位名稱"的判斷變數
 	foreach($rows as $row){
-		if(!$chk){
+		if(!$chk){ //欄位只做一次 而且只做第一次 如果沒有這個判斷及寫入 匯出的資料沒有表頭
 			$cols=array_keys($row); //取鍵值 就是欄位
 			fwrite($file,join(",",$cols)."\r\n"); // \r\n斷行 寫入$file這個檔案 使用join把欄位串接起來形式
 			$chk=true; //只做第一次 後面就不再取
+			// 另一種寫法是foreach $idx($key) 設定idx=0執行 其他不做
 		}
 		fwrite($file,join(",",$row)."\r\n"); //斷行
 	}
 	fclose($file); // 寫完檔案後要將檔案關閉
 	echo "<a href='./doc/{$filename}.csv' download>檔案已匯出，請點此連結下載</a>";
+	// a tag裡面要加download 是檔案可以被下載 如果不加  選定好的資料會直接在html打開
 }
 ?>
 <style>
@@ -38,7 +40,7 @@ if(!empty($_POST)){
 </style>
 <script src="./jquery-3.4.1.min.js"></script>
 <form action="?" method="post">
-	<input type="submit" value="送出">
+	<input type="submit" value="匯出選擇的資料">
 <table>
 	<tr>
 		<th>
