@@ -29,7 +29,7 @@ echo "<ul>";
             $filename='thumb_'.$filestr.sprintf("%04d",$idx+1).".".$ext; //確認檔名更名方式組合
             rename($dir."/".$file,$dir."/".$filename); //把檔案改名 需把完整路徑放上 可以在imgs資料夾中看到被改掉的檔案
             echo "<li>";
-            echo "<img src='$dir/$filename'>"; //在畫面上只有呈現縮圖
+            echo "<img src='$dir/$filename' style='border-radius:5px'>"; //在畫面上只有呈現縮圖
             echo "</li>";
 		}
 	}
